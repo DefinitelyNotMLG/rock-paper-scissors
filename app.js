@@ -1,5 +1,5 @@
-const userScore = 0;
-const compScore = 0;
+let userScore = 0;
+let compScore = 0;
 const userScore_span = document.getElementById("user-score");
 const compScore_span = document.getElementById("comp-score");
 const scoreBoard_div = document.querySelector(".score-board");
@@ -8,6 +8,59 @@ const rock_div = document.getElementById("r");
 const paper_div = document.getElementById("p");
 const scissors_div = document.getElementById("s");
 
-rock_div.addEventListener('click', function () {
-    console.log("hey you clicked rock");
-})
+function getComputerChoice() {
+    const choices = ['r', 'p', 's'];
+    const randomNumber = Math.floor(Math.random() * 3);
+    return choices[randomNumber];
+}
+
+function win() {
+    userScore++;
+    userScore_span.innerHTML = userScore
+    compScore_span.innerHTML = compScore
+}
+
+function loss() {
+    console.log("loss!");
+}
+
+function tie() {
+    console.log("tie");
+}
+
+function game(userChoice) {
+    const computerChoice = getComputerChoice();
+    switch (userChoice + computerChoice) {
+        case "rs":
+        case "pr":
+        case "sp":
+            win();
+            break;
+        case "rp":
+        case "ps":
+        case "sr":
+            loss();
+            break;
+        case "rr":
+        case "pp":
+        case "ss":
+            tie();
+            break;
+    }
+}
+
+function main() {
+    rock_div.addEventListener('click', function () {
+        game("r");
+    })
+
+    paper_div.addEventListener('click', function () {
+        game("p");
+    })
+
+    scissors_div.addEventListener('click', function () {
+        game("s");
+    })
+}
+
+main();
